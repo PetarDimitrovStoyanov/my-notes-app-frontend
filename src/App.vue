@@ -1,4 +1,4 @@
-<template>
+<template style="position: relative">
   <SideMenu v-if="$route.name !== 'login'"/>
   <router-view />
 </template>
