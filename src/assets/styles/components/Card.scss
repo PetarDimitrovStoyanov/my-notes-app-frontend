@@ -9,15 +9,12 @@
   cursor: grabbing;
   border-radius: 6px;
   border: none;
-  //margin-top: 10px;
-  //margin-bottom: 20px;
   max-width: 350px;
   width: 100%;
   margin: 10px;
   align-self: baseline;
 
   .text-area {
-    //max-width: 300px;
     white-space: break-spaces;
     word-break: break-word;
     border: none;
@@ -25,5 +22,9 @@
 
   .text-area:focus {
     outline: none;
+  }
+
+  @media (max-width: $mobile) {
+    max-width: 96%;;
   }
 }

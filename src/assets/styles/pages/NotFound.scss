@@ -1,0 +1,49 @@
+.not-found-component {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 1vw;
+
+  h2 {
+    margin: 0 auto;
+  }
+
+  .button-to-notes {
+    display: block;
+    border: 1.5px solid black;
+    border-radius: 4px;
+    background: transparent;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 0.5em;
+
+    @media (min-width: $mobile) {
+      font-size: 1.5rem;
+    }
+  }
+
+  h2 {
+    font-size: 2rem;
+
+    @media (min-width: $mobile) {
+      font-size: 3rem;
+    }
+  }
+
+  h3 {
+    font-size: 0.7rem;
+
+    @media (min-width: $mobile) {
+      font-size: 1.5rem;
+    }
+  }
+
+  h2, h3, button {
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: center;
+  }
+}
