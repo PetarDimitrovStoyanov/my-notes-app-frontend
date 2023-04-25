@@ -1,5 +1,5 @@
 <template style="position: relative">
-  <SideMenu v-if="$route.name !== 'login'"/>
+  <SideMenu v-if="$route.name !== 'login' && $route.name !== 'not-found'"/>
   <router-view />
 </template>
 

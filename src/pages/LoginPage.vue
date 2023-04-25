@@ -1,13 +1,31 @@
 <template>
-  <h1>LoginPage page</h1>
+  <section class="login-page">
+    <div class="content-wrapper">
+      <Login v-if="isLogin" @setIsLogin="signUp"/>
+      <Register v-else @setIsLogin="signUp"/>
+    </div>
+  </section>
 </template>
 
 <script>
+import Login from "@/components/Login";
+import Register from "@/components/Register";
+
 export default {
-  name: "LoginPage"
+  name: "LoginPage",
+  components: {
+    Login,
+    Register
+  },
+  data() {
+    return {
+      isLogin: true
+    }
+  },
+  methods: {
+    signUp() {
+      this.isLogin = !this.isLogin;
+    }
+  }
 }
 </script>
-
-<style scoped>
-
-</style>
