@@ -1,0 +1,29 @@
+@import "../variable";
+
+.single-card-container {
+  -webkit-box-shadow: 1px 1px 20px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 1px 1px 20px -5px rgba(0,0,0,0.75);
+  box-shadow: 1px 1px 20px -5px rgba(0,0,0,0.75);
+  background: $white;
+  padding: 10px 15px;
+  cursor: grabbing;
+  border-radius: 6px;
+  border: none;
+  //margin-top: 10px;
+  //margin-bottom: 20px;
+  max-width: 350px;
+  width: 100%;
+  margin: 10px;
+  align-self: baseline;
+
+  .text-area {
+    //max-width: 300px;
+    white-space: break-spaces;
+    word-break: break-word;
+    border: none;
+  }
+
+  .text-area:focus {
+    outline: none;
+  }
+}
