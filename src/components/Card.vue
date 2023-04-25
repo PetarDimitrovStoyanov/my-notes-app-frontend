@@ -1,10 +1,15 @@
 <template>
   <article class="single-card-container">
-    <h2>{{ card.title }}</h2>
+    <h2
+        class="text-area"
+        ref="myTitleRef"
+        @dblclick="onDoubleClick('myTitleRef')"
+        :innerHTML="myTitle"
+    ></h2>
     <div
         class="text-area"
         ref="myDiv"
-        @dblclick="onDoubleClick"
+        @dblclick="onDoubleClick('myDiv')"
         :innerHTML="divValue"
     ></div>
   </article>
@@ -22,18 +27,16 @@ export default {
   data() {
     return {
       divValue: this.card.text,
-      isEditing: false
+      isEditing: false,
+      myTitle: this.card.title
     };
   },
   methods: {
-    onDoubleClick() {
+    onDoubleClick(ref) {
       this.isEditing = true;
-      this.$refs.myDiv.contentEditable = true;
-      this.$refs.myDiv.focus();
-    },
-    onInput() {
-      console.log(this.$refs.myDiv.textContent);
-    },
+      this.$refs[ref].contentEditable = true;
+      this.$refs[ref].focus();
+    }
   },
 };
 </script>
