@@ -2,18 +2,30 @@
 
 .dashboard-container {
   width: 100%;
-  max-width: 2500px;
   min-height: 100vh;
   margin-left: 12%;
   margin-right: 12%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 350px);
+  grid-template-columns: repeat(3, 350px);
   grid-gap: 30px;
   row-gap: 5px;
 
   @media (max-width: $mobile) {
-    margin-left: 100px;
-    margin-right: 5%;
+    grid-template-columns: repeat(1, 100%);
+    margin-left: 13%;
+    margin-right: 4%;
+  }
+
+  @media (max-width: $tablet) {
+    grid-template-columns: repeat(2, 100%);
+    margin-left: 13%;
+    margin-right: 4%;
+    overflow: hidden;
+    max-width: unset;
+  }
+
+  @media (min-width: 2400px) {
+    max-width: 2500px;
   }
 
   span {
@@ -26,5 +38,25 @@
     justify-content: start;
     height: fit-content;
   }
+
+  .two-columns {
+    .single-card-container {
+      max-width: 100%;
+    }
+  }
+
+  .one-column {
+    .single-card-container {
+      max-width: 97%;
+    }
+  }
+}
+
+.adjust-two-columns {
+  grid-template-columns: repeat(auto-fill, 400px);
+}
+
+.adjust-one-column {
+  grid-template-columns: repeat(1, 100%);
 }
 

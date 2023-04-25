@@ -1,10 +1,19 @@
 <template>
-  <section class="dashboard-container">
+  <section
+      class="dashboard-container"
+      :class="[
+          {'adjust-two-columns' : cards3.length === 0 && displayWidth > 1050},
+          {'adjust-one-column' : cards3.length === 0 && cards2.length > 0 && displayWidth <= 1050}]"
+  >
     <Draggable
         v-model="cards1"
         group="cards"
         item-key="id"
         tag="span"
+        :class="[
+            {'two-columns' : cards3.length === 0 && displayWidth > 1050},
+            {'one-column' : cards3.length === 0 && cards2.length > 0 && displayWidth <= 1050}
+            ]"
     >
       <template #item="{element}">
         <Card :card="element"/>
@@ -16,6 +25,10 @@
         group="cards"
         item-key="id"
         tag="span"
+        :class="[
+            {'two-columns' : cards3.length === 0 && displayWidth > 1050},
+            {'one-column' : cards3.length === 0 && cards2.length > 0 && displayWidth <= 1050}
+            ]"
     >
       <template #item="{element}">
         <Card :card="element"/>
@@ -27,6 +40,10 @@
         group="cards"
         item-key="id"
         tag="span"
+        :class="[
+            {'two-columns' : cards3.length === 0 && displayWidth > 1050},
+            {'one-column' : cards3.length === 0 && cards2.length > 0 && displayWidth <= 1050}
+        ]"
     >
       <template #item="{element}">
         <Card :card="element"/>

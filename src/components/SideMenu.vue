@@ -16,10 +16,6 @@
         <img class="item-image" :src="require('@/assets/icons/side-menu/plus.svg')" alt="reports">
         <p class="paragraph">Create</p>
       </li>
-      <li class="list-item">
-        <img class="item-image" :src="require('@/assets/icons/side-menu/bg.svg')" alt="star">
-        <p class="paragraph">Language</p>
-      </li>
     </ul>
     <ul class="unordered-list">
       <li class="list-item">
