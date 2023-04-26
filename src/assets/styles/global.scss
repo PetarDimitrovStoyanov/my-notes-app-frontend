@@ -43,3 +43,7 @@ html {
   background: grey;
   border-radius: 5px;
 }
+
+.modal {
+  pointer-events: none;
+}
