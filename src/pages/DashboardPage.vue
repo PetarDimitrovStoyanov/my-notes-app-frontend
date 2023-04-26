@@ -1,54 +1,47 @@
 <template>
-  <section
-      class="dashboard-container"
-      :class="[
-          {'adjust-two-columns' : cards3.length === 0 && displayWidth > 1050},
-          {'adjust-one-column' : cards3.length === 0 && cards2.length > 0 && displayWidth <= 1050}]"
-  >
-    <Draggable
-        v-model="cards1"
-        group="cards"
-        item-key="id"
-        tag="span"
-        :class="[
-            {'two-columns' : cards3.length === 0 && displayWidth > 1050},
-            {'one-column' : cards3.length === 0 && cards2.length > 0 && displayWidth <= 1050}
-            ]"
-    >
-      <template #item="{element}">
-        <Card :card="element"/>
-      </template>
-    </Draggable>
-    <Draggable
-        v-if="cards2.length > 0"
-        v-model="cards2"
-        group="cards"
-        item-key="id"
-        tag="span"
-        :class="[
-            {'two-columns' : cards3.length === 0 && displayWidth > 1050},
-            {'one-column' : cards3.length === 0 && cards2.length > 0 && displayWidth <= 1050}
-            ]"
-    >
-      <template #item="{element}">
-        <Card :card="element"/>
-      </template>
-    </Draggable>
-    <Draggable
-        v-if="cards3.length > 0"
-        v-model="cards3"
-        group="cards"
-        item-key="id"
-        tag="span"
-        :class="[
-            {'two-columns' : cards3.length === 0 && displayWidth > 1050},
-            {'one-column' : cards3.length === 0 && cards2.length > 0 && displayWidth <= 1050}
-        ]"
-    >
-      <template #item="{element}">
-        <Card :card="element"/>
-      </template>
-    </Draggable>
+  <section class="dashboard-container">
+    <div class="personal-wrapper notes-wrapper">
+      <h2>Personal notes:</h2>
+      <Draggable
+          v-model="personalNotes"
+          group="cards"
+          item-key="id"
+          tag="span"
+          class="personal"
+      >
+        <template #item="{element}">
+          <Card :card="element"/>
+        </template>
+      </Draggable>
+    </div>
+    <div class="job-wrapper notes-wrapper">
+      <h2>Job notes:</h2>
+      <Draggable
+          v-model="jobNotes"
+          group="cards"
+          item-key="id"
+          tag="span"
+          class="job"
+      >
+        <template #item="{element}">
+          <Card :card="element"/>
+        </template>
+      </Draggable>
+    </div>
+    <div class="other-wrapper notes-wrapper">
+      <h2>Other notes:</h2>
+      <Draggable
+          v-model="otherNotes"
+          group="cards"
+          item-key="id"
+          tag="span"
+          class="other"
+      >
+        <template #item="{element}">
+          <Card :card="element"/>
+        </template>
+      </Draggable>
+    </div>
   </section>
 </template>
 
@@ -65,55 +58,26 @@ export default {
   },
   data() {
     return {
-      cards1: [],
-      cards2: [],
-      cards3: [],
-      displayWidth: window.innerWidth
+      personalNotes: [],
+      jobNotes: [],
+      otherNotes: [],
     }
   },
   mounted() {
-    this.handleResize();
-    window.addEventListener('resize', this.handleResize);
-  },
-  beforeUnmount() {
-    window.removeEventListener('resize', this.handleResize);
+    this.setPersonalNotes();
+    this.setJobNotes();
+    this.setOtherNotes();
   },
   methods: {
-    setCardsForDesktopVersion() {
-      let firstPart = Math.ceil(data.length / 3);
-      let secondPart = Math.ceil((data.length - firstPart) / 2);
-
-      this.cards1 = [...data].slice(0, firstPart);
-      this.cards2 = [...data].slice(firstPart, firstPart + secondPart);
-      this.cards3 = [...data].slice(firstPart + secondPart, data.length);
+    setPersonalNotes() {
+      this.personalNotes = [...data].filter(note => note.category.name === 'personal');
     },
-    setCardsForTabletVersion() {
-      let firstPart = Math.ceil(data.length / 2);
-      this.cards1 = [...data].slice(0, firstPart);
-      this.cards2 = [...data].slice(firstPart, data.length);
-      this.cards3 = [];
+    setJobNotes() {
+      this.jobNotes = [...data].filter(note => note.category.name === 'job');
     },
-    setCardsForMobileVersion() {
-      this.cards1 = data;
-      this.cards2 = [];
-      this.cards3 = [];
-    },
-    isTabletVersion() {
-      return this.displayWidth > 600 && this.displayWidth <= 1120;
-    },
-    isMobileVersion() {
-      return this.displayWidth <= 600;
-    },
-    handleResize() {
-      this.displayWidth = window.innerWidth;
-      if (this.isMobileVersion()) {
-        this.setCardsForMobileVersion();
-      } else if (this.isTabletVersion()) {
-        this.setCardsForTabletVersion();
-      } else {
-        this.setCardsForDesktopVersion();
-      }
-    },
+    setOtherNotes() {
+      this.otherNotes = [...data].filter(note => note.category.name === 'other');
+    }
   }
 }
 </script>
