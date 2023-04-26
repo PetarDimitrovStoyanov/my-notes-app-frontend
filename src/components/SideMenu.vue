@@ -8,11 +8,11 @@
       </div>
     </div>
     <ul class="unordered-list">
-      <li class="list-item">
+      <li class="list-item" @click="openModal('search')">
         <img class="item-image" :src="require('@/assets/icons/side-menu/search.svg')" alt="search">
         <p class="paragraph">Search</p>
       </li>
-      <li class="list-item" @click="openModal">
+      <li class="list-item" @click="openModal('create')">
         <img class="item-image" :src="require('@/assets/icons/side-menu/plus.svg')" alt="reports">
         <p class="paragraph">Create</p>
       </li>
@@ -36,8 +36,8 @@ export default {
     return {}
   },
   methods: {
-    openModal() {
-      EventBus.emit('toggleModal');
+    openModal(type) {
+      EventBus.emit('toggleModal', type);
     }
   }
 }

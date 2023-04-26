@@ -1,0 +1,82 @@
+@import "../variable";
+
+.form-create {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 25px;
+
+  .select-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    margin-top: 20px;
+    flex-wrap: wrap;
+
+    @media (max-width: $mobile) {
+      gap: 30px;
+    }
+
+    span {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      flex-wrap: nowrap;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      cursor: pointer;
+
+      label {
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      input {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .content-wrapper {
+    width: 100%;
+    position: relative;
+
+    .text-space {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: none;
+    }
+
+    .text-space:focus {
+      border: none;
+      outline: none;
+    }
+
+    .text-space::placeholder {
+      font-size: 16px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+  }
+
+  .create-button {
+    width: fit-content;
+    padding: 10px 15px;
+    cursor: pointer;
+    align-self: end;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: none;
+    color: $white;
+    background: $graphite-black;
+  }
+}

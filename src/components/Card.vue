@@ -8,8 +8,24 @@
           :innerHTML="myTitle"
       ></h2>
       <div class="card-icons">
-        <img @click="changeImportance" class="important-button" :src="require('@/assets/icons/card/important.svg')" alt="!">
-        <img @click="deleteNote" :src="require('@/assets/icons/card/trash.svg')" alt="delete">
+        <img
+            v-if="card.important"
+            @click="changeImportance"
+            class="important-button"
+            :src="require('@/assets/icons/card/star-solid.svg')"
+            alt="star"
+        >
+        <img
+            v-else @click="changeImportance"
+            class="important-button"
+            :src="require('@/assets/icons/card/star-regular.svg')"
+            alt="star"
+        >
+        <img
+            @click="deleteNote"
+            :src="require('@/assets/icons/card/trash.svg')"
+            alt="delete"
+        >
       </div>
     </div>
 
@@ -23,6 +39,8 @@
 </template>
 
 <script>
+import {EventBus} from "@/event-bus/event-bus";
+
 export default {
   name: "Card",
   props: {
@@ -40,9 +58,12 @@ export default {
   },
   methods: {
     deleteNote() {
+      EventBus.emit('toggleModal', 'confirmation');
       //TODO: FETCH + delete from storage
     },
     changeImportance() {
+      // eslint-disable-next-line vue/no-mutating-props
+      this.card.important = !this.card.important
       //TODO: FETCH + change object property
     },
     onDoubleClick(ref) {
