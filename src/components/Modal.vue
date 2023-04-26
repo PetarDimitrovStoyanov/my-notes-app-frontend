@@ -38,6 +38,11 @@ export default {
     toggleModal(type) {
       this.type = type;
       this.showModal = !this.showModal;
+      if (this.showModal) {
+        this.$router.push({ path: '/', query: { modal: 'true' }})
+      } else {
+        this.$router.push({ path: '/', query: {}})
+      }
     },
   }
 }

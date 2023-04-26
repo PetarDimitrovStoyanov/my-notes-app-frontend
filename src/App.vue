@@ -1,6 +1,9 @@
-<template style="position: relative">
-  <SideMenu v-if="$route.name !== 'login' && $route.name !== 'not-found'"/>
-  <router-view />
+<template style="position: relative" >
+  <SideMenu
+      v-if="$route.name !== 'login' && $route.name !== 'not-found'"
+      :class="$route.query.modal ? 'modal' : ''"
+  />
+  <router-view :class="$route.query.modal ? 'modal' : ''" />
   <Modal />
 </template>
 
