@@ -1,16 +1,19 @@
 <template style="position: relative">
   <SideMenu v-if="$route.name !== 'login' && $route.name !== 'not-found'"/>
   <router-view />
+  <Modal />
 </template>
 
 <script>
 
 import SideMenu from "@/components/SideMenu";
+import Modal from "@/components/Modal";
 
 export default {
   name: 'App',
   components: {
-    SideMenu
+    SideMenu,
+    Modal
   }
 }
 </script>

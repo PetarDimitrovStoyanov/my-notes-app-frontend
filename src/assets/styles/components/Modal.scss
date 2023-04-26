@@ -1,0 +1,131 @@
+@import "../variable";
+
+.modal-container {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 5% 30%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  pointer-events: none;
+
+  @media (max-width: $mobile) {
+    padding: 5% 5%;
+  }
+
+  .modal-wrapper {
+    min-width: fit-content;
+    min-height: 400px;
+    background: $white;
+    padding: 50px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 6px;
+    pointer-events: auto;
+    position: relative;
+
+    @media (max-width: $mobile) {
+      padding: 30px 15px;
+    }
+
+    @media (max-width: 300px) {
+      //margin-right: 50px;
+    }
+
+    .close {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      padding: 5px;
+      cursor: pointer;
+      top: 15px;
+      right: 15px;
+    }
+
+    .form-create {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 25px;
+
+      .select-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        gap: 40px;
+        width: 100%;
+        margin-top: 20px;
+        flex-wrap: wrap;
+
+        @media (max-width: $mobile) {
+          gap: 30px;
+        }
+
+        span {
+          display: flex;
+          flex-direction: row;
+          gap: 5px;
+          flex-wrap: nowrap;
+          padding-top: 5px;
+          padding-bottom: 5px;
+          cursor: pointer;
+
+          label {
+            cursor: pointer;
+            font-size: 16px;
+          }
+
+          input {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .content-wrapper {
+        width: 100%;
+        position: relative;
+
+        .text-space {
+          width: 100%;
+          padding: 8px;
+          font-size: 16px;
+          border: none;
+        }
+
+        .text-space:focus {
+          border: none;
+          outline: none;
+        }
+
+        .text-space::placeholder {
+          font-size: 16px;
+        }
+
+        .error {
+          color: red;
+          font-size: 14px;
+        }
+      }
+
+      .create-button {
+        width: fit-content;
+        padding: 10px 15px;
+        cursor: pointer;
+        align-self: end;
+        text-transform: uppercase;
+        border-radius: 4px;
+        border: none;
+        color: $white;
+        background: #272B2E;
+      }
+    }
+  }
+}

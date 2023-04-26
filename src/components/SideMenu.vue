@@ -12,7 +12,7 @@
         <img class="item-image" :src="require('@/assets/icons/side-menu/search.svg')" alt="search">
         <p class="paragraph">Search</p>
       </li>
-      <li class="list-item">
+      <li class="list-item" @click="openModal">
         <img class="item-image" :src="require('@/assets/icons/side-menu/plus.svg')" alt="reports">
         <p class="paragraph">Create</p>
       </li>
@@ -28,11 +28,17 @@
 </template>
 
 <script>
+import {EventBus} from "@/event-bus/event-bus";
+
 export default {
   name: "SideMenu",
   data() {
     return {}
   },
-  methods: {}
+  methods: {
+    openModal() {
+      EventBus.emit('toggleModal');
+    }
+  }
 }
 </script>
