@@ -13,6 +13,7 @@
           <Card :card="element"/>
         </template>
       </Draggable>
+      <p class="drag">+ Drag some note here</p>
     </div>
     <div class="job-wrapper notes-wrapper">
       <h2>Job notes:</h2>
@@ -27,6 +28,7 @@
           <Card :card="element"/>
         </template>
       </Draggable>
+      <p class="drag">+ Drag some note here</p>
     </div>
     <div class="other-wrapper notes-wrapper">
       <h2>Other notes:</h2>
@@ -41,6 +43,7 @@
           <Card :card="element"/>
         </template>
       </Draggable>
+      <p class="drag">+ Drag some note here</p>
     </div>
   </section>
 </template>
