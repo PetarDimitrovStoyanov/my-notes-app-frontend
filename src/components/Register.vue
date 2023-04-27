@@ -47,6 +47,7 @@ import authenticationMixin from "@/mixins/authenticationMixin";
 
 export default {
   name: "Register",
+  emits: ['setIsLogin'],
   mixins: [authenticationMixin],
   data() {
     return {

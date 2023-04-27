@@ -48,6 +48,7 @@ import authenticationMixin from "@/mixins/authenticationMixin";
 
 export default {
   name: "Login",
+  emits: ['setIsLogin'],
   mixins: [authenticationMixin],
   methods: {
     loginFacebook() {
