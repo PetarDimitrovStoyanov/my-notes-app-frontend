@@ -32,40 +32,34 @@
         @click="submit($event)"
     >
   </form>
-  <div class="with">
-    <p>or sign up using</p>
-    <div class="options">
-      <span @click="loginFacebook"><img :src="require('@/assets/icons/login/facebook.svg')" alt="facebook"></span>
-      <span @click="loginGoogle"><img :src="require('@/assets/icons/login/google.svg')" alt="google"></span>
-    </div>
-  </div>
   <p class="sign-up" @click="changeForm">sign up</p>
 </template>
 
 <script>
 
 import authenticationMixin from "@/mixins/authenticationMixin";
+import * as API_SERVICE from "../services/apiService";
 
 export default {
   name: "Login",
   emits: ['setIsLogin'],
   mixins: [authenticationMixin],
   methods: {
-    loginFacebook() {
-      console.log("Facebook")
-    },
-    loginGoogle() {
-      console.log("Google")
-    },
     submit(event) {
       event.preventDefault();
       this.verifyError('email');
       this.verifyError('password');
-      console.log(this.errors)
+
       if (!this.errors.email && this.email.trim() !== '' && !this.errors.password && this.password.trim() !== '') {
-        //TODO: FETCH
-        console.log(this.email)
-        console.log(this.password)
+        API_SERVICE.login({'email': this.email, 'password': this.password})
+        .then((response)=> {
+          this.$store.dispatch("setUser", response.data);
+          this.$store.dispatch("setToken", response.headers['authorization']);
+          this.$router.push("/dashboard")
+        })
+        .catch((error)=> {
+          console.error(error)
+        })
       }
     }
   }

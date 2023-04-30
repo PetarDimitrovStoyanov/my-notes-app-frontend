@@ -1,15 +1,16 @@
 <template>
-  <article :class="['single-card-container', card.important ? 'important' : '']">
+  <article :id="card.id" :class="['single-card-container', card.isImportant ? 'important' : '']" >
     <div class="card-meta-wrapper">
       <h2
           class="text-area"
           ref="myTitleRef"
           @dblclick="onDoubleClick('myTitleRef')"
+          @focusout="update"
           :innerHTML="myTitle"
       ></h2>
       <div class="card-icons">
         <img
-            v-if="card.important"
+            v-if="card.isImportant"
             @click="changeImportance"
             class="important-button"
             :src="require('@/assets/icons/card/star-solid.svg')"
@@ -33,6 +34,7 @@
         class="text-area"
         ref="myDiv"
         @dblclick="onDoubleClick('myDiv')"
+        @focusout="update"
         :innerHTML="divValue"
     ></div>
   </article>
@@ -40,6 +42,7 @@
 
 <script>
 import {EventBus} from "@/event-bus/event-bus";
+import * as API_SERVICE from "../services/apiService";
 
 export default {
   name: "Card",
@@ -57,14 +60,38 @@ export default {
     };
   },
   methods: {
+    createUpdatingNote() {
+      let updatedNote = {...this.card}
+      updatedNote.owner = this.$store.getters.getUser;
+      updatedNote.title = this.$refs.myTitleRef.textContent;
+      updatedNote.text = this.$refs.myDiv.textContent;
+
+      return updatedNote;
+    },
+    update() {
+      let updatedNote = this.createUpdatingNote();
+      this.updateNoteInDatabase(updatedNote);
+    },
     deleteNote() {
       EventBus.emit('toggleModal', 'confirmation');
-      //TODO: FETCH + delete from storage
+      this.$store.dispatch('setSelectedNote', this.card.id);
+    },
+    updateNoteInDatabase(updatedNote, type) {
+      API_SERVICE.updateNote(updatedNote)
+          .then(() => {
+            if (type && type === 'isImportant') {
+              // eslint-disable-next-line vue/no-mutating-props
+              this.card.isImportant = !this.card.isImportant;
+            }
+          })
+          .catch((error) => {
+            console.error(error)
+          })
     },
     changeImportance() {
-      // eslint-disable-next-line vue/no-mutating-props
-      this.card.important = !this.card.important
-      //TODO: FETCH + change object property
+      let updatedNote = this.createUpdatingNote();
+      updatedNote.isImportant = !this.card.isImportant;
+      this.updateNoteInDatabase(updatedNote, 'isImportant');
     },
     onDoubleClick(ref) {
       this.isEditing = true;

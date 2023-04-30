@@ -3,8 +3,8 @@
     <div class="user">
       <img class="user-img" :src="require('@/assets/icons/side-menu/user.svg')" alt="user">
       <div>
-        <h2>Thomas Daniel</h2>
-        <p class="paragraph">test@gmail.com</p>
+        <h2>{{$store.getters.getUserField('fullName')}}</h2>
+        <p class="paragraph">{{$store.getters.getUserField('email')}}</p>
       </div>
     </div>
     <ul class="unordered-list">
@@ -18,7 +18,7 @@
       </li>
     </ul>
     <ul class="unordered-list">
-      <li class="list-item">
+      <li class="list-item" @click="logout">
         <img class="item-image" :src="require('@/assets/icons/side-menu/logout.svg')" alt="logout">
         <p class="paragraph">Logout</p>
       </li>
@@ -29,6 +29,7 @@
 
 <script>
 import {EventBus} from "@/event-bus/event-bus";
+import * as API_SERVICE from "../services/apiService";
 
 export default {
   name: "SideMenu",
@@ -38,6 +39,15 @@ export default {
   methods: {
     openModal(type) {
       EventBus.emit('toggleModal', type);
+    },
+    logout() {
+      API_SERVICE.logout()
+      .then(() => {
+        this.$router.push("/login")
+      })
+      .catch((error) => {
+        console.error(error)
+      })
     }
   }
 }
