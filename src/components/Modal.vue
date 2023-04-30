@@ -1,5 +1,5 @@
 <template>
-  <section class="modal-container" v-if="showModal">
+  <section class="modal-container" v-if="showModal && isRouteContainsModal">
     <div class="modal-wrapper">
       <img class="close" @click="toggleModal" :src="require('../assets/icons/x.svg')" alt="x">
       <Search v-if="type === 'search'" />
@@ -28,10 +28,16 @@ export default {
       type: ''
     }
   },
+  computed: {
+    isRouteContainsModal() {
+      return this.$route.query['modal']
+    }
+  },
   created() {
     EventBus.on('toggleModal', this.toggleModal);
   },
   beforeUnmount() {
+    EventBus.off('toggleModal')
     this.type = '';
   },
   methods: {

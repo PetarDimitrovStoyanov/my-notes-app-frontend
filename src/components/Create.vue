@@ -6,7 +6,7 @@
                 type="radio"
                 id="personal"
                 name="category"
-                value="personal"
+                value="Personal"
                 @change="selectCategory($event)"
             >
             <label for="personal">Personal</label>
@@ -16,7 +16,7 @@
                 type="radio"
                 id="job"
                 name="category"
-                value="job"
+                value="Job"
                 @change="selectCategory($event)"
             >
             <label for="job">Job</label>
@@ -26,7 +26,7 @@
                 type="radio"
                 id="other"
                 name="category"
-                value="other"
+                value="Other"
                 @change="selectCategory($event)"
                 checked
             >
@@ -61,6 +61,7 @@
 
 <script>
 import {EventBus} from "@/event-bus/event-bus";
+import * as API_SERVICE from "../services/apiService";
 
 export default {
   name: "Create",
@@ -73,23 +74,22 @@ export default {
         title: false,
         text: false
       },
-      categories: [
-        {
-          id: 1,
-          name: 'personal'
-        },
-        {
-          id: 2,
-          name: 'job'
-        },
-        {
-          id: 3,
-          name: 'other'
-        }
-      ]
+      categories: []
     }
   },
+  mounted() {
+    this.fetchAllCategories();
+  },
   methods: {
+    fetchAllCategories() {
+      API_SERVICE.fetchCategories()
+          .then((response) => {
+            this.categories = response.data;
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+    },
     selectCategory(event) {
       this.category = this.categories.find(category => category.name === event.target.value);
     },
@@ -97,10 +97,26 @@ export default {
       event.preventDefault();
       this.verifyFields();
       if (!this.errors.text && !this.errors.title) {
-        console.log(this.title)
-        console.log(this.text)
-        console.log(this.category)
-        EventBus.emit('toggleModal', 'create');
+        this.category = this.category.id ? this.category : this.categories.find(category => category.name === "Other");
+        let note = {
+          title: this.title,
+          text: this.text,
+          category: this.category,
+          isImportant: false,
+          owner: this.$store.getters.getUser,
+          orderNumber: this.$store.getters.getNotes.length === 0 ? 0 : this.$store.getters.getNotes.length - 1
+        }
+        API_SERVICE.createNote(note)
+            .then((response) => {
+              this.$store.dispatch('addNote', response.data);
+              EventBus.emit("fetchNotes")
+            })
+            .catch((error) => {
+              console.error(error)
+            })
+            .finally(() => {
+              EventBus.emit('toggleModal', 'create');
+            });
       }
     },
     verifyFields() {
