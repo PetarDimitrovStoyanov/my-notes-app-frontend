@@ -10,16 +10,16 @@
       <h4>Select one or combine filter options:</h4>
       <div class="options">
         <span class="filter-wrapper">
-         <input type="checkbox" id="personal" name="personal" v-model="personal">
-         <label for="personal">Personal</label>
+          <input type="checkbox" id="personal" name="personal" v-model="personal">
+          <label for="personal">Personal</label>
         </span>
         <span class="filter-wrapper">
-         <input type="checkbox" id="job" name="job" v-model="job">
-         <label for="job">Job</label>
+          <input type="checkbox" id="job" name="job" v-model="job">
+          <label for="job">Job</label>
         </span>
         <span class="filter-wrapper">
-         <input type="checkbox" id="other" name="other" v-model="other">
-         <label for="other">Other</label>
+          <input type="checkbox" id="other" name="other" v-model="other">
+          <label for="other">Other</label>
         </span>
         <span class="filter-wrapper">
          <input type="checkbox" id="important" name="important" v-model="important">
@@ -42,16 +42,31 @@ export default {
       personal: false,
       job: false,
       other: false,
-      important: false
+      important: false,
+      categories: this.$store.getters.getCategories
     }
   },
   methods: {
     submit() {
-      console.log(this.searchText)
-      console.log(this.personal)
-      console.log(this.job)
-      console.log(this.other)
-      console.log(this.important)
+      let selectedCategories = [];
+      if (this.personal) {
+        selectedCategories.push(this.$store.getters.getCategoryByName('Personal').id)
+      }
+      if (this.job) {
+        selectedCategories.push(this.$store.getters.getCategoryByName('Job').id)
+      }
+      if (this.other) {
+        selectedCategories.push(this.$store.getters.getCategoryByName('Job').id)
+      }
+
+      let criteria = {
+        text: this.searchText,
+        isImportant: this.important,
+        categories: selectedCategories.length > 0 ? selectedCategories : null,
+        ownerId: this.$store.getters.getUserField('id')
+      }
+
+      EventBus.emit('search', criteria);
       EventBus.emit('toggleModal', 'search');
     }
   }

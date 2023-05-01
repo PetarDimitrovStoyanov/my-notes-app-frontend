@@ -75,11 +75,14 @@ export default {
   },
   created() {
     EventBus.on('fetchNotes', this.fetchNotes);
+    EventBus.on('search', this.search);
   },
   beforeUnmount() {
     EventBus.off('fetchNotes')
+    EventBus.off('search');
   },
   mounted() {
+    this.fetchAllCategories();
     this.fetchNotes();
   },
   methods: {
@@ -95,24 +98,6 @@ export default {
 
       return notesByCategory;
     },
-    getCategory(categoryName) {
-      if (categoryName === "Personal") {
-        return {
-          id: 1,
-          name: "Personal"
-        }
-      } else if (categoryName === "Job") {
-        return {
-          id: 2,
-          name: "Job"
-        }
-      } else {
-        return {
-          id: 3,
-          name: "Other"
-        }
-      }
-    },
     onDragEnd(event) {
       const {item, newIndex, to} = event;
       const notes = this.getNotesByCategory(to.id);
@@ -120,7 +105,8 @@ export default {
 
       this.updatePositionFields(updateNote, notes, newIndex);
 
-      updateNote.category = this.getCategory(to.id);
+      updateNote.category = this.$store.getters.getCategoryByName(to.id);
+      // updateNote.category = this.getCategory(to.id);
       updateNote.owner = {
         id: this.$store.getters.getUserField('id')
       }
@@ -163,13 +149,37 @@ export default {
             console.error(error);
           })
     },
-    fetchNotes() {
-      API_SERVICE.fetchNodes(this.$store.getters.getUserField('id'))
+    search(criteria) {
+      API_SERVICE.search(criteria)
           .then((response) => {
             this.$store.dispatch('setNotes', response.data)
             this.setPersonalNotes();
             this.setJobNotes();
             this.setOtherNotes();
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+    },
+    fetchNotes() {
+      let criteria = {
+        ownerId: this.$store.getters.getUserField('id')
+      }
+      API_SERVICE.search(criteria)
+          .then((response) => {
+            this.$store.dispatch('setNotes', response.data)
+            this.setPersonalNotes();
+            this.setJobNotes();
+            this.setOtherNotes();
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+    },
+    fetchAllCategories() {
+      API_SERVICE.fetchCategories()
+          .then((response) => {
+            this.$store.dispatch('setCategories', response.data)
           })
           .catch((error) => {
             console.error(error)

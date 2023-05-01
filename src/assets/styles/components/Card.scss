@@ -22,11 +22,20 @@
     align-items: center;
     width: 100%;
 
+    @media (max-width: $mobile) {
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
     .text-area {
       white-space: break-spaces;
       word-break: break-word;
       border: none;
       flex-basis: 70%;
+
+      @media (max-width: $mobile) {
+        flex-basis: unset;
+      }
     }
 
     .text-area:focus {
@@ -47,6 +56,8 @@
 
       @media (max-width: $mobile) {
         gap: 20px;
+        flex-basis: unset;
+        width: 100%;
       }
 
       img {
@@ -64,6 +75,13 @@
         padding-right: 15px;
         padding-left: 15px;
       }
+
+      .delete {
+        @media (max-width: $mobile) {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+      }
     }
 
   }
@@ -79,7 +97,11 @@
   }
 
   @media (max-width: $mobile) {
-    max-width: 96%;;
+    max-width: 96%;
+  }
+
+  .text-content {
+    font-size: 20px;
   }
 }
 
