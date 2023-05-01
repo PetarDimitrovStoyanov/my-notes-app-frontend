@@ -11,16 +11,12 @@ export function updateNote(updatedNote) {
     return axios.patch(`${uri}/notes/update`, updatedNote)
 }
 
-export function deleteNode(id, ownerId) {
+export function deleteNote(id, ownerId) {
     return axios.delete(`${uri}/notes/${id}/delete/${ownerId}/owner`)
 }
 
 export function createNote(note) {
     return axios.post(`${uri}/notes/create`, note)
-}
-
-export function fetchNodes(id) {
-    return axios.get(`${uri}/notes/by-user/${id}`)
 }
 
 export function fetchCategories() {
@@ -33,5 +29,16 @@ export function login(data) {
 
 export function logout() {
     return axios.get(`${uri}/users/logout`);
+}
+
+export function search(criteria) {
+    let requestParams = ``;
+    for (const field in criteria) {
+        let param = criteria[field] ? `${field}=${criteria[field]}&` : ''
+        requestParams += param;
+    }
+    requestParams = requestParams !== "" ? `?${requestParams}` : '';
+
+    return axios.post(`${uri}/notes/search${requestParams}`);
 }
 

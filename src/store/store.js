@@ -11,7 +11,8 @@ export default createStore({
         },
         token: null,
         notes: [],
-        selectedNote: null
+        selectedNote: null,
+        categories: []
     },
     getters: {
         getUser: (state) => {
@@ -28,6 +29,12 @@ export default createStore({
         },
         getSelectedNote: (state) => {
             return state.selectedNote
+        },
+        getCategories: (state) => {
+            return state.categories;
+        },
+        getCategoryByName: (state) => (name) => {
+            return state.categories.find(category => category.name === name);
         }
     },
     actions: {
@@ -45,6 +52,9 @@ export default createStore({
         },
         setSelectedNote({commit}, payload) {
             commit(`changeSelectedNote`, payload)
+        },
+        setCategories({commit}, payload) {
+            commit(`changeCategories`, payload)
         }
     },
     mutations: {
@@ -62,13 +72,16 @@ export default createStore({
         },
         changeSelectedNote(state, payload) {
             state.selectedNote = payload
+        },
+        changeCategories(state, payload) {
+            state.categories = payload
         }
     },
     plugins: [
         createPersistedState({
             key: "user-store",
             storage: window.localStorage,
-            paths: [`user`, `token`, `notes`]
+            paths: [`user`, `token`, `notes`, `selectedNote`, `categories`]
         })
     ]
 })

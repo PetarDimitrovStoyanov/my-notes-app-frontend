@@ -14,7 +14,7 @@ export default {
   methods: {
     hideModal() {
       const ownerId = this.$store.getters.getUserField('id');
-      API_SERVICE.deleteNode(this.$store.getters.getSelectedNote, ownerId)
+      API_SERVICE.deleteNote(this.$store.getters.getSelectedNote, ownerId)
           .then(() => {
             EventBus.emit("fetchNotes")
             EventBus.emit('toggleModal', 'confirmation');

@@ -31,7 +31,7 @@
     </div>
 
     <div
-        class="text-area"
+        class="text-area text-content"
         ref="myDiv"
         @dblclick="onDoubleClick('myDiv')"
         @focusout="update"

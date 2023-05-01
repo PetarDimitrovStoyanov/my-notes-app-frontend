@@ -74,22 +74,10 @@ export default {
         title: false,
         text: false
       },
-      categories: []
+      categories: this.$store.getters.getCategories
     }
   },
-  mounted() {
-    this.fetchAllCategories();
-  },
   methods: {
-    fetchAllCategories() {
-      API_SERVICE.fetchCategories()
-          .then((response) => {
-            this.categories = response.data;
-          })
-          .catch((error) => {
-            console.error(error)
-          })
-    },
     selectCategory(event) {
       this.category = this.categories.find(category => category.name === event.target.value);
     },
