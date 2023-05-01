@@ -5,16 +5,19 @@
   />
   <router-view :class="$route.query.modal ? 'modal' : ''" />
   <Modal />
+  <Spinner />
 </template>
 
 <script>
 
 import SideMenu from "@/components/SideMenu";
 import Modal from "@/components/Modal";
+import Spinner from "@/components/Spinner";
 
 export default {
   name: 'App',
   components: {
+    Spinner,
     SideMenu,
     Modal
   }
