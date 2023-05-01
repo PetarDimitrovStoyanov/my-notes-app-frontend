@@ -2,7 +2,7 @@
   <article :id="card.id" :class="['single-card-container', card.isImportant ? 'important' : '']" >
     <div class="card-meta-wrapper">
       <h2
-          class="text-area"
+          :class="['text-area', 'title-title']"
           ref="myTitleRef"
           @dblclick="onDoubleClick('myTitleRef')"
           @focusout="update"
@@ -31,7 +31,7 @@
     </div>
 
     <div
-        class="text-area text-content"
+        :class="['text-area', 'text-content']"
         ref="myDiv"
         @dblclick="onDoubleClick('myDiv')"
         @focusout="update"

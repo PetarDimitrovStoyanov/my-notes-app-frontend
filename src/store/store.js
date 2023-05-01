@@ -30,6 +30,9 @@ export default createStore({
         getSelectedNote: (state) => {
             return state.selectedNote
         },
+        getSingleNote: (state) => (noteId) => {
+            return state.notes.find(note => note.id === noteId)
+        },
         getCategories: (state) => {
             return state.categories;
         },
@@ -49,6 +52,9 @@ export default createStore({
         },
         addNote({commit}, payload) {
             commit(`pushNote`, payload)
+        },
+        updateSingleNote({commit}, payload) {
+            commit(`changeSingleNote`, payload)
         },
         setSelectedNote({commit}, payload) {
             commit(`changeSelectedNote`, payload)
@@ -72,6 +78,14 @@ export default createStore({
         },
         changeSelectedNote(state, payload) {
             state.selectedNote = payload
+        },
+        changeSingleNote(state, payload) {
+            state.notes.map(note => {
+                if (note.id === payload.id) {
+                    return payload
+                }
+                return note;
+            })
         },
         changeCategories(state, payload) {
             state.categories = payload
