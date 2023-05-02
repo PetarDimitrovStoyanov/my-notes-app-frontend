@@ -9,6 +9,7 @@
         tag="span"
         :class="draggableClass"
         @end="onDragEnd($event)"
+        :touchStartThreshold="10"
     >
       <template #item="{element}">
         <Card :card="element"/>

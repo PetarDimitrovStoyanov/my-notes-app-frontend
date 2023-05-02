@@ -1,35 +1,35 @@
 import axios from "../config/axiosConfig";
 
-// const uri = "http://localhost:8080/backend";
-const uri = "https://my-notes-backend-production-3759.up.railway.app/backend";
-
-
 export function updateNoteOnDrag(updatedNote) {
-    return axios.patch(`${uri}/notes/update-on-drag`, updatedNote)
+    return axios.patch(`/notes/update-on-drag`, updatedNote)
 }
 
 export function updateNote(updatedNote) {
-    return axios.patch(`${uri}/notes/update`, updatedNote)
+    return axios.patch(`/notes/update`, updatedNote)
 }
 
 export function deleteNote(id, ownerId) {
-    return axios.delete(`${uri}/notes/${id}/delete/${ownerId}/owner`)
+    return axios.delete(`/notes/${id}/delete/${ownerId}/owner`)
 }
 
 export function createNote(note) {
-    return axios.post(`${uri}/notes/create`, note)
+    return axios.post(`/notes/create`, note)
 }
 
 export function fetchCategories() {
-    return axios.get(`${uri}/categories`)
+    return axios.get(`/categories`)
 }
 
 export function login(data) {
-    return axios.post(`${uri}/users/login`, data);
+    return axios.post(`/users/login`, data);
+}
+
+export function register(user) {
+    return axios.post(`/users/register`, user)
 }
 
 export function logout() {
-    return axios.get(`${uri}/users/logout`);
+    return axios.get(`/users/logout`);
 }
 
 export function search(criteria) {
@@ -40,6 +40,6 @@ export function search(criteria) {
     }
     requestParams = requestParams !== "" ? `?${requestParams}` : '';
 
-    return axios.post(`${uri}/notes/search${requestParams}`);
+    return axios.post(`/notes/search${requestParams}`);
 }
 
