@@ -50,7 +50,8 @@ export default {
   },
   methods: {
     onDragEnd(event) {
-      const {item, newIndex, from, to} = event;
+
+      const {item, to} = event;
       this.updateCategory(item, to);
       let categoryNotes = [];
 
