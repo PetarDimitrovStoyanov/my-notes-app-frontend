@@ -22,7 +22,7 @@
 
     @media (max-width: $mobile) {
       min-width: 95vw;
-      min-height: 95vh;
+      min-height: 80vh;
       padding: 40px 20px;
     }
 
@@ -78,6 +78,12 @@
         text-transform: uppercase;
         font-weight: 600;
         color: $white;
+      }
+
+      .user {
+        color: red;
+        font-size: 12px;
+        text-align: center;
       }
     }
 

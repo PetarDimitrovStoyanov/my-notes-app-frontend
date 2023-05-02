@@ -31,6 +31,7 @@
         value="Login"
         @click="submit($event)"
     >
+    <p v-if="errors.isInvalidUser" class="user error">Wrong email or password.</p>
   </form>
   <p class="sign-up" @click="changeForm">sign up</p>
 </template>
@@ -58,6 +59,7 @@ export default {
           this.$router.push("/dashboard")
         })
         .catch((error)=> {
+          this.showInvalidUserMessage(3000);
           console.error(error)
         })
       }

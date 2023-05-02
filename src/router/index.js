@@ -52,6 +52,7 @@ router.beforeEach(async (to, from, next) => {
         });
         await store.dispatch("setToken", null);
         await store.dispatch("setSelectedNote", null);
+        await store.dispatch("setNotes", []);
     }
 
 

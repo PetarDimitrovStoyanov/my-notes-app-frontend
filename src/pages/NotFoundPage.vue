@@ -2,7 +2,7 @@
   <div class="not-found-component">
     <h2>ERROR 404</h2>
     <h3>Page not found.</h3>
-    <button class="button-to-notes" @click="redirect()">To home page</button>
+    <button class="button-to-notes" @click="redirect()">To back</button>
   </div>
 </template>
 
