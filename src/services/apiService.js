@@ -1,6 +1,7 @@
 import axios from "../config/axiosConfig";
 
-const uri = "http://localhost:8080/backend";
+// const uri = "http://localhost:8080/backend";
+const uri = "https://my-notes-backend-production-3759.up.railway.app/backend";
 
 
 export function updateNoteOnDrag(updatedNote) {
