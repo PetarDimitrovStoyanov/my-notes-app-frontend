@@ -56,7 +56,7 @@ export default {
         selectedCategories.push(this.$store.getters.getCategoryByName('Job').id)
       }
       if (this.other) {
-        selectedCategories.push(this.$store.getters.getCategoryByName('Job').id)
+        selectedCategories.push(this.$store.getters.getCategoryByName('Other').id)
       }
 
       let criteria = {
