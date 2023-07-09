@@ -65,15 +65,9 @@ export default {
         ownerId: this.$store.getters.getUserField('id')
       }
       API_SERVICE.search(criteria)
-          .then((response) => {
-            this.$store.dispatch('setNotes', response.data)
-          })
-          .catch((error) => {
-            console.error(error)
-          })
-          .finally(() => {
-            this.key += 1
-          })
+          .then((response) => this.$store.dispatch('setNotes', response.data))
+          .catch((error) => console.error(error))
+          .finally(() => this.key += 1)
     },
     fetchAllCategories() {
       API_SERVICE.fetchCategories()
