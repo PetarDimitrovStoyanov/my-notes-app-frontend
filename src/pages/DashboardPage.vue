@@ -77,12 +77,8 @@ export default {
     },
     fetchAllCategories() {
       API_SERVICE.fetchCategories()
-          .then((response) => {
-            this.$store.dispatch('setCategories', response.data)
-          })
-          .catch((error) => {
-            console.error(error)
-          })
+          .then((response) => this.$store.dispatch('setCategories', response.data))
+          .catch((error) => console.error(error))
     }
   }
 }
