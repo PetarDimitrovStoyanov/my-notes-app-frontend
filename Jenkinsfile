@@ -9,7 +9,7 @@ pipeline {
             steps {
                 echo "start building the ${APPLICATION} on branch - ${BRANCH_NAME}"
                 withCredentials([
-                    usernamePassword(credentials: 'docker-hub', usernameVariable: USER)
+                    usernamePassword(credentials: 'docker-hub', usernameVariable: 'USER')
                 ]) {
                     echo "credentials - ${USER}"
                 }
@@ -29,7 +29,7 @@ pipeline {
                 echo "deploying the ${APPLICATION}"
                 sh 'docker build -t petardimitrovstoyanov/my-notes-fe .'
                 withCredentials([
-                  usernamePassword(credentials: 'docker-hub', usernameVariable: USER, passwordVariable: PWD)
+                  usernamePassword(credentials: 'docker-hub', usernameVariable: 'USER', passwordVariable: 'PWD')
                 ]) {
                   echo "credentials - ${USER}"
                   sh 'docker login -u ${USER} -p ${PWD}'
