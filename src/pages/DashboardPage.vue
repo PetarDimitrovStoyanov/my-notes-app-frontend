@@ -1,5 +1,8 @@
 <template>
-  <section class="dashboard-container" :key="key">
+  <section
+      class="dashboard-container"
+      :key="key"
+  >
     <CategoryColumn
         :id="'Personal'"
         :wrapperClasses="['personal-wrapper']"
