@@ -14,7 +14,7 @@ pipeline {
                     echo "credentials - ${USER}"
                 }
                 sh 'npm install'
-                sh 'npm build'
+                sh 'npm run build'
             }
         }
 
