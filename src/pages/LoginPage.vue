@@ -2,8 +2,8 @@
   <section class="login-page">
     <div class="content-wrapper">
       <Login
-          v-if="isLogin"
-          @setIsLogin="signUp"
+          v-if="isLogin" 
+          @setIsLogin="signUp" 
       />
       <Register
           v-else
