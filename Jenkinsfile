@@ -32,7 +32,7 @@ pipeline {
                   usernamePassword(credentials: 'docker-hub', usernameVariable: 'USER', passwordVariable: 'PWD')
                 ]) {
                   echo "credentials - ${USER}"
-                  sh 'docker login -u ${USER} -p ${PWD}'
+                  sh 'docker login -u USER -p PWD'
                 }
                 sh 'docker push petardimitrovstoyanov/my-notes-fe:latest'
                 sh 'docker run -p 8001:8001 petardimitrovstoyanov/my-notes-fe'
