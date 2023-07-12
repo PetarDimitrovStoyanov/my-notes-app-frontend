@@ -3,7 +3,7 @@
     <div class="content-wrapper">
       <Login
           v-if="isLogin" 
-          @setIsLogin="signUp"
+          @setIsLogin="signUp" 
       />
       <Register
           v-else
