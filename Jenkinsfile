@@ -35,6 +35,9 @@ pipeline {
                   sh 'docker login -u USER -p PWD'
                 }
                 sh 'docker push petardimitrovstoyanov/my-notes-fe:latest'
+                sh 'docker stop $(docker ps -q --filter "name=petardimitrovstoyanov/my-notes-fe") || true'
+                sh 'docker rm $(docker ps -aq --filter "name=petardimitrovstoyanov/my-notes-fe") || true'
+                sh 'docker rmi petardimitrovstoyanov/my-notes-fe:latest || true'
                 sh 'docker run -p 8001:8001 petardimitrovstoyanov/my-notes-fe'
             }
         }
