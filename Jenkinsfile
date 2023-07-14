@@ -2,14 +2,16 @@ pipeline {
     agent any
     environment {
         APPLICATION = 'MY NOTES FRONTEND'
-        DOCKER_HUB_USERNAME = credentials('docker-hub')
+        DOCKER_HUB_USERNAME = credentials('docker-hub').username
+        DOCKER_HUB_PASSWORD = credentials('docker-hub').password
     }
     stages {
         stage("build") {
             steps {
-                echo "start building the ${APPLICATION} on branch - ${BRANCH_NAME}"
+                echo "**************** start building the ${APPLICATION} on branch - ${BRANCH_NAME} ****************"
+                echo "**************** docker credentials ${DOCKER_HUB_USERNAME} / - ${DOCKER_HUB_PASSWORD} ****************"
                 withCredentials([
-                    usernamePassword(credentials: 'docker-hub', usernameVariable: 'USER')
+                    usernamePassword(credentials: 'docker', usernameVariable: 'USER')
                 ]) {
                     echo "credentials - ${USER}"
                 }
@@ -20,16 +22,16 @@ pipeline {
 
         stage("test") {
             steps {
-                echo 'testing the app'
+                echo "**************** testing the app ****************"
             }
         }
 
         stage("deploy") {
             steps {
-                echo "deploying the ${APPLICATION}"
+                echo "**************** deploying the ${APPLICATION} ****************"
                 sh 'docker build -t petardimitrovstoyanov/my-notes-fe .'
                 withCredentials([
-                  usernamePassword(credentials: 'docker-hub', usernameVariable: 'USER', passwordVariable: 'PWD')
+                  usernamePassword(credentials: 'docker', usernameVariable: 'USER', passwordVariable: 'PWD')
                 ]) {
                   echo "credentials - ${USER}"
                   sh 'docker login -u USER -p PWD'
